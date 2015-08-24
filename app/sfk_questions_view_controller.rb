@@ -18,7 +18,22 @@ class SfkQuestionsViewController < UIViewController
   end
 
   def showAQuestion
-    @label.text = @sfkQuestion.randomQuestion
+    # @label.text = @sfkQuestion.randomQuestion
+    # @label.alpha = 0
+
+    UIView.animateWithDuration(1.0,
+      animations: lambda {
+        @label.alpha = 0
+        @label.transform = CGAffineTransformMakeScale(0.1,0.1)
+      },
+      completion:lambda { |finished|
+        @label.text = @sfkQuestion.randomQuestion
+        UIView.animateWithDuration(1.0,
+                        animations:lambda {
+                          @label.alpha = 1
+                          @label.transform = CGAffineTransformIdentity
+                          })
+        })
   end
 
   def makeQuestionLabel
