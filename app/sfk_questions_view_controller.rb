@@ -13,10 +13,12 @@ class SfkQuestionsViewController < UIViewController
     view.userInteractionEnabled = true
     recognizer = UITapGestureRecognizer.alloc.initWithTarget(self, action:'showAQuestion')
     view.addGestureRecognizer(recognizer)
+
+    @sfkQuestion = SfkQuestion.new  #all classes in app folder are automatically required
   end
 
   def showAQuestion
-    @label.text = ['Europa','Aufräumen','Berlin','Leberwurst'].sample
+    @label.text = @sfkQuestion.randomQuestion
   end
 
   def makeQuestionLabel
