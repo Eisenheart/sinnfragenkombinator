@@ -2,16 +2,36 @@ class SfkQuestionsViewController < UIViewController
   #there seem to be a bunch of standard view controller methods
   def loadView
     self.view = UIImageView.alloc.init
+    self.title = 'sinnfragenkombinator'
   end
 
   def viewDidLoad
     view.image = UIImage.imageNamed('epikouros.jpg') #needs to be compressed
-    # view.image = CGRect(10,10,30,30); #images go in resources file
 
-    @labelIst = makeLabelIst(10,30,40,40)
-    @labelSubject = makeLabel(50,30,150,40)
-    @labelSecondPart = makeLabel(120,30,200,40)
-    @labelQuestionMark = makeLabelQuestionMark(250,30,20,40)
+    # @add_button = UIButton.buttonWithType(UIButtonTypeRoundedRect)
+    # @add_button.setTitle("Add", forState:UIControlStateNormal)
+    # @add_button.sizeToFit
+    # @add_button.frame = CGRect.new(
+    #   [10, view.frame.size.height - 10 - @add_button.frame.size.height],
+    #   @add_button.frame.size)
+
+    # view.addSubview(@add_button)
+
+    # @remove_button = UIButton.buttonWithType(UIButtonTypeRoundedRect)
+    # @remove_button.setTitle("Remove", forState:UIControlStateNormal)
+    # @remove_button.sizeToFit
+    # @remove_button.frame = CGRect.new([@add_button.frame.origin.x + @add_button.frame.size.width + 10,@add_button.frame.origin.y],
+    # @remove_button.frame.size)
+
+    # view.addSubview(@remove_button)
+
+    # @remove_button.addTarget(self, action:"remove_tapped",forControlEvents:UIControlEventTouchUpInside)
+
+    @labelIst = makeLabelIst(10,60,40,40)
+    @labelSubject = makeLabel(50,60,150,40)
+    @labelSecondPart = makeLabel(120,60,200,40)
+    @labelQuestionMark = makeLabelQuestionMark(250,60,20,40)
+
     view.addSubview(@labelIst)
     view.addSubview(@labelSubject)
     view.addSubview(@labelSecondPart)

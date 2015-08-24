@@ -4,11 +4,14 @@ class AppDelegate
     rootViewController.title = 'sinnfragenkombinator'
     rootViewController.view.backgroundColor = UIColor.whiteColor
 
-    # navigationController = UINavigationController.alloc.initWithRootViewController(rootViewController)
+    controllerQuestions = SfkQuestionsViewController.alloc.init
+
+    navigationController = UINavigationController.alloc.initWithRootViewController(controllerQuestions)
 
     @window = UIWindow.alloc.initWithFrame(UIScreen.mainScreen.bounds)
-    @window.rootViewController = SfkQuestionsViewController.alloc.init#navigationController
+    @window.rootViewController = navigationController
     @window.makeKeyAndVisible
+
 
     true
   end
