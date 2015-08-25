@@ -2,35 +2,17 @@ class SfkQuestionsViewController < UIViewController
   #there seem to be a bunch of standard view controller methods
   def loadView
     self.view = UIImageView.alloc.init
-    self.title = 'sinnfragenkombinator'
+    self.title = 'SFK - Fragen'
   end
 
   def viewDidLoad
+    super #not sure what it does?
     view.image = UIImage.imageNamed('epikouros.jpg') #needs to be compressed
 
-    # @add_button = UIButton.buttonWithType(UIButtonTypeRoundedRect)
-    # @add_button.setTitle("Add", forState:UIControlStateNormal)
-    # @add_button.sizeToFit
-    # @add_button.frame = CGRect.new(
-    #   [10, view.frame.size.height - 10 - @add_button.frame.size.height],
-    #   @add_button.frame.size)
-
-    # view.addSubview(@add_button)
-
-    # @remove_button = UIButton.buttonWithType(UIButtonTypeRoundedRect)
-    # @remove_button.setTitle("Remove", forState:UIControlStateNormal)
-    # @remove_button.sizeToFit
-    # @remove_button.frame = CGRect.new([@add_button.frame.origin.x + @add_button.frame.size.width + 10,@add_button.frame.origin.y],
-    # @remove_button.frame.size)
-
-    # view.addSubview(@remove_button)
-
-    # @remove_button.addTarget(self, action:"remove_tapped",forControlEvents:UIControlEventTouchUpInside)
-
-    @labelIst = makeLabelIst(10,60,40,40)
-    @labelSubject = makeLabel(50,60,150,40)
-    @labelSecondPart = makeLabel(120,60,200,40)
-    @labelQuestionMark = makeLabelQuestionMark(250,60,20,40)
+    @labelIst = makeLabelIst(10,80,40,40)
+    @labelSubject = makeLabel(50,80,150,40)
+    @labelSecondPart = makeLabel(120,80,200,40)
+    @labelQuestionMark = makeLabelQuestionMark(250,80,20,40)
 
     view.addSubview(@labelIst)
     view.addSubview(@labelSubject)
@@ -42,6 +24,37 @@ class SfkQuestionsViewController < UIViewController
     view.addGestureRecognizer(recognizer)
 
     @sfkQuestion = SfkQuestion.new  #all classes in app folder are automatically required
+
+    #creates a button_alt including touch animation, referenced action not created yet
+    button_width = 80
+    button_alt = UIButton.buttonWithType(UIButtonTypeRoundedRect)
+    button_alt.setTitle("Alternative", forState:UIControlStateNormal)
+    button_alt.setTitleColor(UIColor.send("blueColor"), forState:UIControlStateNormal)
+    button_alt.sizeToFit
+    button_alt.frame = CGRectMake(10,200,100,100)
+    # button_alt.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin
+    button_alt.addTarget(self,action:"refresh_questions",forControlEvents:UIControlEventTouchUpInside)
+    self.view.addSubview(button_alt)
+
+    #creates a button_answer including touch animation, referenced action not created yet
+    button_answer = UIButton.buttonWithType(UIButtonTypeRoundedRect)
+    button_answer.setTitle("Zur Antwort", forState:UIControlStateNormal)
+    button_answer.setTitleColor(UIColor.send("blueColor"), forState:UIControlStateNormal)
+    button_answer.sizeToFit
+    button_answer.frame = CGRectMake(10,100,100,100)
+    # button_answer.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin
+    button_answer.addTarget(self,action:"show_answer",forControlEvents:UIControlEventTouchUpInside)
+    self.view.addSubview(button_answer)
+  end
+
+  def refresh_questions
+    controller = SfkQuestionsViewController.alloc.init
+    self.navigationController.pushViewController(controller, animated: true)
+  end
+
+  def show_answer
+    controller = SfkAnswersViewController.alloc.init
+    self.navigationController.pushViewController(controller, animated: true)
   end
 
   def showAQuestion
