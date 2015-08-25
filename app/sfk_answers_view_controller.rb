@@ -27,32 +27,82 @@ class SfkAnswersViewController < UIViewController
     #creates a button_alt including touch animation, referenced action not created yet
     button_width = 80
     button_alt = UIButton.buttonWithType(UIButtonTypeRoundedRect)
-    button_alt.setTitle("Alternative", forState:UIControlStateNormal)
+    button_alt.setTitle("Alternative Antwort", forState:UIControlStateNormal)
     button_alt.setTitleColor(UIColor.send("blueColor"), forState:UIControlStateNormal)
     button_alt.sizeToFit
-    # button_alt.frame = CGRect.new([[10,30],[50,50]])
-    button_alt.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin
-    button_alt.addTarget(self,action:"refresh_questions",forControlEvents:UIControlEventTouchUpInside)
+    button_alt.frame = CGRectMake(10,200,150,100)
+    # button_alt.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin
+    button_alt.addTarget(self,action:"refresh_answers",forControlEvents:UIControlEventTouchUpInside)
     self.view.addSubview(button_alt)
 
-    # #creates a button_answer including touch animation, referenced action not created yet
-    # button_answer = UIButton.buttonWithType(UIButtonTypeRoundedRect)
-    # button_answer.setTitle("Zur Antwort", forState:UIControlStateNormal)
-    # button_answer.setTitleColor(UIColor.send("blueColor"), forState:UIControlStateNormal)
-    # button_answer.sizeToFit
-    # # button_answer.frame = CGRect.new([[10,100],[50,50]])
+    #creates a button_answer including touch animation, referenced action not created yet
+    button_answer = UIButton.buttonWithType(UIButtonTypeRoundedRect)
+    button_answer.setTitle("Zu Fragen", forState:UIControlStateNormal)
+    button_answer.setTitleColor(UIColor.send("blueColor"), forState:UIControlStateNormal)
+    button_answer.sizeToFit
+    button_answer.frame = CGRectMake(10,100,100,100)
     # button_answer.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin
-    # button_answer.addTarget(self,action:"show_answer",forControlEvents:UIControlEventTouchUpInside)
-    # self.view.addSubview(button_answer)
+    button_answer.addTarget(self,action:"show_questions",forControlEvents:UIControlEventTouchUpInside)
+    self.view.addSubview(button_answer)
   end
 
-  def refresh_questions
+  def show_questions
     controller = SfkQuestionsViewController.alloc.init
     self.navigationController.pushViewController(controller, animated: true)
   end
 
-  def show_answer
+  def refresh_answers
     controller = SfkAnswersViewController.alloc.init
     self.navigationController.pushViewController(controller, animated: true)
   end
+
+  def showAQuestion
+    # @label.text = @sfkQuestion.randomQuestion
+    # @label.alpha = 0
+
+    UIView.animateWithDuration(1.0,
+      animations: lambda {
+        @labelSubject.alpha = 0
+        @labelSubject.transform = CGAffineTransformMakeScale(0.1,0.1)
+      },
+      completion:lambda { |finished|
+        @labelSubject.text = @sfkQuestion.randomQuestion
+        UIView.animateWithDuration(1.0,
+                        animations:lambda {
+                          @labelSubject.alpha = 1
+                          @labelSubject.transform = CGAffineTransformIdentity
+                          })
+        })
+  end
+
+  def makeLabel(x,y,width,height)
+    label = UILabel.alloc.initWithFrame([[x,y],[width,height]])
+    label.backgroundColor = UIColor.lightGrayColor
+    label.text = ['Europa','Aufräumen','Berlin','Leberwurst'].sample
+    label.font = UIFont.boldSystemFontOfSize(20)
+    label.textColor = UIColor.darkGrayColor
+    label.textAlignment = UITextAlignmentCenter
+    label
+  end
+
+  def makeLabelIst(x,y,width,height)
+    label = UILabel.alloc.initWithFrame([[x,y],[width,height]])
+    label.backgroundColor = UIColor.lightGrayColor
+    label.text = "Ist"
+    label.font = UIFont.boldSystemFontOfSize(20)
+    label.textColor = UIColor.darkGrayColor
+    label.textAlignment = UITextAlignmentCenter
+    label
+  end
+
+  def makeLabelQuestionMark(x,y,width,height)
+    label = UILabel.alloc.initWithFrame([[x,y],[width,height]])
+    label.backgroundColor = UIColor.lightGrayColor
+    label.text = "?"
+    label.font = UIFont.boldSystemFontOfSize(20)
+    label.textColor = UIColor.darkGrayColor
+    label.textAlignment = UITextAlignmentCenter
+    label
+  end
+
 end
